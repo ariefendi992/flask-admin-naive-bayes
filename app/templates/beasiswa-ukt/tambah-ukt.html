@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% set filename = 'kat-fakultas' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='vendors/choices.js/choices.min.css') }}" />
+<link rel="stylesheet"
+  href="{{ url_for('static', filename='vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/all.min.css') }}">
+<style>
+  table.dataTable td {
+    padding: 15px 8px;
+  }
+
+  .fontawesome-icons .the-icon svg {
+    font-size: 24px;
+  }
+
+  .isi {
+    text-align: justify;
+  }
+</style>
+{% endblock  %}
+
+{% block content %}
+<div class="content-wrapper container">
+  {# <div class="page-heading">
+    <h4>Form Tambah Data UKT</h4>
+  </div> #}
+  <div class="page-content">
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="card">
+          {# {% for x in resp_ukt %}
+          {{x.id_user}}
+          {% endfor %} #}
+          <div class="card-content">
+            <div class="card-body">
+              <div class="row">
+                <div id="form" class="col-md-7">
+                  <form method="post" class="form form-horizontal">
+                    <div class="form-body">
+                      <div class="row">
+                        <h5 class="card-title">Tambah Data Pendaftar Beasiswa UKT</h5>
+                        <div class="col-md-4">
+                          <label>Nama</label>
+                        </div>
+                        <fieldset class="col-md-8 form-group">
+                          <select class="form-select form-select-sm" name="id_user" id="selectUser"
+                            onchange="getUser(this)">
+                            <option value="">.:: Pilih ::.</option>
+                            {% for user in resp_user %}
+                            <option value=" {{user.id}}">{{user.nama}} | {{user.stambuk}}</option>
+
+                            {% endfor %}
+                          </select>
+                        </fieldset>
+
+                        <div class="col-md-4">
+                          <label>NIK</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                          <input type="text" id="nik-id" class="form-control form-control-sm" name="nik"
+                            placeholder="No. Induk KTP">
+                        </div>
+
+                        <div class="col-md-4">
+                          <label>Prodi</label>
+                        </div>
+                        <fieldset class="col-md-8 form-group">
+                          <select class="form-select form-select-sm" name="prodi">
+                            <option value="">.:: Pilih ::.</option>
+                            {% for prodi in resp_prodi %}
+                            <option value=" {{prodi.id}}">{{prodi.jurusan}}</option>
+                            {% endfor %}
+                          </select>
+                        </fieldset>
+
+                        <div class="col-md-4">
+                          <label>Semester</label>
+                        </div>
+                        <fieldset class="col-md-8 form-group">
+                          <select class="form-select form-select-sm" name="semester">
+                            <option value="">.:: Pilih ::.</option>
+                            {% for sms in resp_sms %}
+                            <option value=" {{sms.id}}">{{sms.semester}}</option>
+                            {% endfor %}
+                          </select>
+                        </fieldset>
+
+                        <div class="col-md-4">
+                          <label>Status Mahasiswa</label>
+                        </div>
+                        <fieldset class="col-md-8 form-group">
+                          <select class="form-select form-select-sm" name="status_mhs">
+                            <option value="">.:: Pilih ::.</option>
+                            <option value="aktif">Aktif</option>
+                            <option value="cuti">Cuti</option>
+                          </select>
+                        </fieldset>
+
+                        <div class="col-md-4">
+                          <label>Penerima KIP/Bidik Misi</label>
+                        </div>
+                        <fieldset class="col-md-8 form-group">
+                          <select class="form-select form-select-sm" name="kip">
+                            <option value="">.:: Pilih ::.</option>
+                            <option value="terima">Terima</option>
+                            <option value="tidak">Tidak</option>
+                          </select>
+                        </fieldset>
+
+                        <div class="col-md-4">
+                          <label>Penghasilan Orang Tua</label>
+                        </div>
+                        <fieldset class="col-md-8 form-group">
+                          <select class="form-select form-select-sm" name="penghasilan_orang_tua">
+                            <option value="">.:: Pilih ::.</option>
+                            <option value="< 1500000">Kurang Dari 1.500.000</option>
+                            <option value="1500000-2500000">1.500.000 - 2.500.000</option>
+                            <option value="2500000-3500000">2.500.000 - 3.500.000</option>
+                            <option value="3500000-4000000">3.500.000 - 4.000.000</option>
+                            <option value="> 4000000">Lebih dari 4.000.000</option>
+                            <option value="tidak">Tidak</option>
+                          </select>
+                        </fieldset>
+
+                        <div class="col-md-4">
+                          <label>Jumlah Tanggungan</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                          <input type="number" id="nik-id" class="form-control form-control-sm" name="tanggungan"
+                            placeholder="Tanggungan Orang Tua">
+                        </div>
+
+                        <div class="col-md-4">
+                          <label>Penerima PKH/KKS</label>
+                        </div>
+                        <fieldset class="col-md-8 form-group">
+                          <select class="form-select form-select-sm" name="pkh">
+                            <option value="">.:: Pilih ::.</option>
+                            <option value="terima">Terima</option>
+                            <option value="tidak">Tidak</option>
+                          </select>
+                        </fieldset>
+
+                        <div class="col-md-4">
+                          <label>Kelayakan</label>
+                        </div>
+                        <fieldset class="col-md-8 form-group">
+                          <select class="form-select form-select-sm" name="keputusan">
+                            <option value="">.:: Pilih ::.</option>
+                            <option value="layak">Layak</option>
+                            <option value="tidak layak">Tidak Layak</option>
+                          </select>
+                        </fieldset>
+
+                        <div class="col-sm-12 d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary btn-sm me-1 mb-1 ">Submit</button>
+                          <button type="reset" class="btn btn-light-secondary  btn-sm me-1 mb-1">Reset</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div id="keterangan" class="col-md-5">
+                  <div class="row">
+                    <h5 class="card-title">Ketentuan Penerima</h5>
+                    <div class="col-sm-1">
+                      <p class="card-text">1.</p>
+                    </div>
+                    <div class="col-sm-11">
+                      <p class="card-text isi">Mahasiswa telah menerima bantuan pada semester sebelumnya</p>
+                    </div>
+                    <div class="col-sm-1">
+                      <p class="card-text">2.</p>
+                    </div>
+                    <div class="col-sm-11">
+                      <p class="card-text isi">Terdaftar sebagai penerima PKH / KKS, mahasiswa dari panti asuhan/panti
+                        sosial</p>
+                    </div>
+                    <div class="col-sm-1">
+                      <p class="card-text">3.</p>
+                    </div>
+                    <div class="col-sm-11">
+                      <p class="card-text isi">Pendapatan orang tua/yang membiayai kuliah maksimal Rp. 4000.000,00</p>
+                    </div>
+                    <div class="col-sm-1">
+                      <p class="card-text">4.</p>
+                    </div>
+                    <div class="col-sm-11">
+                      <p class="card-text isi">Tidak sedang dibiayai oleh program beasiswa lainnya seperti KIP atau
+                        Bidik Misi</p>
+                    </div>
+                    <div class="col-sm-1">
+                      <p class="card-text">5.</p>
+                    </div>
+                    <div class="col-sm-11">
+                      <p class="card-text isi">Mahasiswa aktif yang tercatat di PDDikti dan sedang menjalani perkuliahan
+                        minimal semester 3 sampai 9</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+  function getUser(selectUser) {
+    var users = selectUser.value;
+
+  }
+</script>
+<script src="{{ url_for('static', filename='vendors/choices.js/choices.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/pages/form-element-select.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/mazer.js') }}"></script>
+
+<script src="{{url_for('static', filename='vendors/jquery/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='vendors/jquery-datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js')}}">
+</script>
+<script src="{{ url_for('static', filename='vendors/fontawesome/all.min.js')}}"></script>
+{% endblock  %}

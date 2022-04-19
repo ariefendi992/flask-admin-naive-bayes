@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% set filename = 'user-data' %}
+
+{% block css %}
+<!-- <link rel="stylesheet" href="../../static/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
+<link rel="stylesheet"
+  href="{{ url_for('static', filename='vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/all.min.css') }}">
+<style>
+  table.dataTable td {
+    padding: 15px 8px;
+  }
+
+  .fontawesome-icons .the-icon svg {
+    font-size: 24px;
+  }
+</style>
+{% endblock  %}
+
+{% block content %}
+<div class="content-wrapper container">
+  {# <div class="page-heading">
+    <h4>.::Kategori Jurusan::.</h4>
+  </div> #}
+  <div class="page-content">
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              {# <h5 class="card-title">Data Jurusan</h5> #}
+              <a href=" {{url_for('admin.userAdd')}} " class="btn btn-primary btn-sm">.::Tambah Data::.</a>
+              <table class="table" id="table1">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>NIM</th>
+                    <th>Nama</th>
+                    <th>E-mail</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Created At</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for data in response %}
+                  <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{data.stambuk}}</td>
+                    <td>{{data.nama}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.gender | capitalize }}</td>
+                    <td>{{data.created_at | dateTimeIndo }}</td>
+                    <td>
+                      <a class="btn btn-sm btn-outline-warning" href="{{url_for('admin.userById', id=data.id)}}"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Data {{ data.nama }}">
+                        <i class="fa fa-pen"></i>
+                      </a>
+                      <a href="" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-placement="top"
+                        title="Hapus Data {{ data.nama }}" data-bs-target="#hapusModal{{data.id}}">
+                        <i class="fa fa-trash"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  {% include "modal/modal-delete.html" %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock  %}
+
+{% block js %}
+
+<script src="{{ url_for('static', filename='vendors/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/jquery-datatables/jquery.dataTables.min.js') }}">
+</script>
+<script src="{{ url_for('static', filename='vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js') }}">
+</script>
+<script src="{{ url_for('static', filename='vendors/fontawesome/all.min.js') }}"></script>
+
+
+<script src="{{ url_for('static', filename='js/mazer.js') }}"></script>
+{% endblock  %}

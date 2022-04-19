@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% set filename = 'user-add' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='vendors/choices.js/choices.min.css') }}" />
+<link rel="stylesheet"
+  href="{{ url_for('static', filename='vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/all.min.css') }}">
+<style>
+  table.dataTable td {
+    padding: 15px 8px;
+  }
+
+  .fontawesome-icons .the-icon svg {
+    font-size: 24px;
+  }
+
+  .isi {
+    text-align: justify;
+  }
+</style>
+{% endblock  %}
+
+{% block content %}
+<div class="content-wrapper container">
+  {# <div class="page-heading">
+    <h4>Form Tambah Data UKT</h4>
+  </div> #}
+  <div class="page-content">
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="card">
+          {# {% for x in resp_ukt %}
+          {{x.id_user}}
+          {% endfor %} #}
+          <div class="card-content">
+            <div class="card-body">
+              <div class="row">
+                <div id="form" class="col-md-7">
+                  <form method="post" class="form form-horizontal">
+                    <div class="form-body">
+                      <div class="row">
+                        <h5 class="card-title">Tambah Data User</h5>
+                        <div class="col-md-4">
+                          <label>Stambuk</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                          <input type="text" id="nik-id" class="form-control form-control-sm" name="nim"
+                            placeholder="Stambuk Mahasiswa">
+                        </div>
+
+                        <div class="col-md-4">
+                          <label>Nama</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                          <input type="text" id="nik-id" class="form-control form-control-sm" name="name"
+                            placeholder="Nama Lengkap">
+                        </div>
+
+                        <div class="col-md-4">
+                          <label>Jenis Kelamin</label>
+                        </div>
+                        <fieldset class="col-md-8 form-group">
+                          <select class="form-select form-select-sm" name="jk">
+                            <option value="">.:: Pilih ::.</option>
+                            <option value="laki-laki">Laki-laki</option>
+                            <option value="perempuan">Perempuan</option>
+                          </select>
+                        </fieldset>
+
+                        <div class="col-md-4">
+                          <label>E-Mail</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                          <input type="text" id="nik-id" class="form-control form-control-sm" name="mail"
+                            placeholder="E-mail Address aktif">
+                        </div>
+
+                        <div class="col-md-4">
+                          <label>Password</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                          <input type="password" id="nik-id" class="form-control form-control-sm" name="pswd"
+                            placeholder="Password">
+                        </div>
+
+
+
+
+                        <div class="col-sm-12 d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary btn-sm me-1 mb-1 ">Simpan</button>
+                          <button type="reset" class="btn btn-light-secondary  btn-sm me-1 mb-1">Batal</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+  function getUser(selectUser) {
+    var users = selectUser.value;
+
+  }
+</script>
+<script src="{{ url_for('static', filename='vendors/choices.js/choices.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/pages/form-element-select.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/mazer.js') }}"></script>
+
+<script src="{{url_for('static', filename='vendors/jquery/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='vendors/jquery-datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js')}}">
+</script>
+<script src="{{ url_for('static', filename='vendors/fontawesome/all.min.js')}}"></script>
+{% endblock  %}
