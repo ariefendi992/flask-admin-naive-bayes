@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set filename = 'ukt-add' %}
+{% set filename = 'uji-ukt' %}
 
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='vendors/choices.js/choices.min.css') }}" />
@@ -34,10 +34,10 @@
             <div class="card-body">
               <div class="row">
                 <div id="form" class="col-md-7">
-                  <form method="post" class="form form-horizontal">
+                  <form action="{{url_for('ukt.prediksi')}}" method="post" class="form form-horizontal">
                     <div class="form-body">
                       <div class="row">
-                        <h5 class="card-title">Tambah Data Pendaftar Beasiswa UKT</h5>
+                        <h5 class="card-title">.:: Uji Data ::..</h5>
                         <div class="col-md-4">
                           <label>Nama</label>
                         </div>
@@ -51,14 +51,6 @@
                             {% endfor %}
                           </select>
                         </fieldset>
-
-                        <div class="col-md-4">
-                          <label>NIK</label>
-                        </div>
-                        <div class="col-md-8 form-group">
-                          <input type="text" id="nik-id" class="form-control form-control-sm" name="nik"
-                            placeholder="No. Induk KTP">
-                        </div>
 
                         <div class="col-md-4">
                           <label>Prodi</label>
@@ -137,19 +129,8 @@
                           </select>
                         </fieldset>
 
-                        <div class="col-md-4">
-                          <label>Kelayakan</label>
-                        </div>
-                        <fieldset class="col-md-8 form-group">
-                          <select class="form-select form-select-sm" name="keputusan">
-                            <option value="">.:: Pilih ::.</option>
-                            <option value="layak">Layak</option>
-                            <option value="tidak layak">Tidak Layak</option>
-                          </select>
-                        </fieldset>
-
                         <div class="col-sm-12 d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary btn-sm me-1 mb-1 ">Simpan</button>
+                          <button type="submit" class="btn btn-primary btn-sm me-1 mb-1 ">Hitung</button>
                           <button type="reset" class="btn btn-light-secondary  btn-sm me-1 mb-1">Reset</button>
                         </div>
                       </div>

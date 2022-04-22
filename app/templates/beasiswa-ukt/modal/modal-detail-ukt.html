@@ -1,0 +1,96 @@
+<div class="modal fade text-left" id="modal-detaill{{data.id}}" tabindex="-1" aria-labelledby="myModalLabel33"
+  style="display: none;" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class=" modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel33">.::Detail Data::.</h4>
+        <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close">
+          <i data-feather="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">Nama</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.nama}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">Stambuk</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.nim}}" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">NIK</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.nik}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">Prodi</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.prodi}}" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">Semester</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.semester}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">Status Mahasiswa</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.status_mhs | capitalize}}"
+                disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">KIP/Bidik Misi</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.terima_kip_bm | capitalize}}"
+                disabled>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">Penghasilan Orang Tua</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.penghasilan_orang_tua}}" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">Jumlah Tanggungan</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.jml_tanggungan }}" disabled>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">PKH/KKS</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.pkh | capitalize}}" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="helpInputTop">PKH/KKS</label>
+              <input type="text" class="form-control form-control-sm" value="{{ data.keputusan | capitalize}}" disabled>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

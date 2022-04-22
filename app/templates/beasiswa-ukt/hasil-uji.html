@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% set filename = 'hasil-uji' %}
+
+{% block css %}
+<link rel="stylesheet"
+  href="{{ url_for('static', filename='vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/all.min.css') }}">
+<style>
+  table.dataTable td {
+    padding: 15px 8px;
+  }
+
+  .fontawesome-icons .the-icon svg {
+    font-size: 24px;
+  }
+</style>
+{% endblock  %}
+
+{% block content %}
+<div class="content-wrapper container">
+  <div class="page-content">
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h1 class="card-title">Hasil Perhitungan Penerimaan Beasiswa</h1>
+          </div>
+          <div class="card-content">
+            <div class="card-body pt-2">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="table-responsive-sm">
+                    <table class="table table-bordered border-secondary border border-2">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>Jumlah data</th>
+                          <th>Kelas PC1(Layak)</th>
+                          <th>Kelas PC0(Tidak Layak)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          {% for data in response['data'] %}
+                          <td>{{data.total_data.total_data}}</td>
+                          <td>{{data.total_data.layak}}</td>
+                          <td>{{data.total_data.tidak_layak}}</td>
+                          {% endfor %}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row pt-3">
+                <div class="col-md-6">
+                  <h6 class="card-subtitle">----Probabilitas Prior----</h6>
+                  <div class="table-responsive-sm">
+                    <table class="table table-bordered border-secondary border border-2">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>Kelas PC1(Layak)</th>
+                          <th>Kelas PC0(Tidak Layak)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          {% for data in response['data'] %}
+                          <td>{{data.p_class.layak}}</td>
+                          <td>{{data.p_class.tidak_layak}}</td>
+                          {% endfor %}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row pt-3">
+                <div class="col-md-10">
+                  <h6 class="card-subtitle">----Probabilitas Data Uji----</h6>
+                  <div class="table-responsive-sm">
+                    <table class="table table-bordered border-secondary border border-2">
+                      <thead class="table-dark">
+                        <tr>
+                          <th colspan="3">Data X</th>
+                          <th>P(X)C1</th>
+                          <th>P(X)C0</th>
+                        </tr>
+                      </thead>
+                      <thead class="table-dark">
+                        <tr>
+                          <th colspan="2">Atribut</th>
+                          <th>Nilai</th>
+                          <th>Layak</th>
+                          <th>Tidak Layak</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Prodi</td>
+                          <td>:</td>
+                          <td>
+                            {% for prodi in resp_prodi %}
+                            {% if prodi.id == pay.id_prodi %}
+                            {{prodi.jurusan}}
+                            {% endif %}
+                            {% endfor %}
+                          </td>
+                          {% for data in response['data'] %}
+                          <td>{{ data.atr_prodi.layak}}</td>
+                          <td>{{ data.atr_prodi.tidak_layak}}</td>
+                          {% endfor %}
+                          </the>
+                        </tr>
+                        <tr>
+                          <td>Semester</td>
+                          <td>:</td>
+                          <td>
+                            {% for sms in resp_sms %}
+                            {% if sms.id == pay.id_semester %}
+                            {{sms.semester}}
+                            {% endif %}
+                            {% endfor %}
+                          </td>
+                          {% for data in response['data'] %}
+                          <td>{{ data.atr_semester.layak}}</td>
+                          <td>{{ data.atr_semester.tidak_layak}}</td>
+                          {% endfor %}
+
+                        </tr>
+                        <tr>
+                          <td>Status Mahasiswa</td>
+                          <td>:</td>
+                          <td>{{ pay.status_mhs | capitalize }}</td>
+                          {% for data in response['data'] %}
+                          <td>{{ data.atr_status_mhs.layak}}</td>
+                          <td>{{ data.atr_status_mhs.tidak_layak}}</td>
+                          {% endfor %}
+                        </tr>
+                        <tr>
+                          <td>Penerima KIP</td>
+                          <td>:</td>
+                          <td>{{ pay.kip_bm | capitalize }}</td>
+                          {% for data in response['data'] %}
+                          <td>{{ data.atr_penerima_kip.layak}}</td>
+                          <td>{{ data.atr_penerima_kip.tidak_layak}}</td>
+                          {% endfor %}
+                        </tr>
+                        <tr>
+                          <td>Penghasilan Orang Tua</td>
+                          <td>:</td>
+                          <td>
+                            {% for penghasilan in resp_penghasilan %}
+                            {% if penghasilan.id == pay.id_penghasilan %}
+                            {{ penghasilan.keterangan}}
+                            {% endif %}
+                            {% endfor %}
+                          </td>
+                          {% for data in response['data'] %}
+                          <td>{{ data.atr_penghasilan_orang_tua.layak}}</td>
+                          <td>{{ data.atr_penghasilan_orang_tua.tidak_layak}}</td>
+                          {% endfor %}
+                        </tr>
+                        <tr>
+                          <td>Jumlah Tanggungan</td>
+                          <td>:</td>
+                          <td>{{ pay.tanggungan}}</td>
+                          {% for data in response['data'] %}
+                          <td>{{ data.atr_jml_tanggungan.layak}}</td>
+                          <td>{{ data.atr_jml_tanggungan.tidak_layak}}</td>
+                          {% endfor %}
+                        </tr>
+                        <tr>
+                          <td>Penerma PKH/KKS</td>
+                          <td>:</td>
+                          <td>{{ pay.pkh_kks | capitalize}}</td>
+                          {% for data in response['data'] %}
+                          <td>{{ data.atr_status_pkh.layak}}</td>
+                          <td>{{ data.atr_status_pkh.tidak_layak}}</td>
+                          {% endfor %}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row pt-2">
+                <p class="card-text">
+                  Berdasarkan hasil perhitungan, dapat disimpulkan bahwa data uji tersebut
+                  <b><u>{{response.kesimpulan| upper}}</u></b> untuk mendapatkan bantuan beasiswa Uang Kuliah Tunggal.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+
+<script src="{{url_for('static', filename='vendors/jquery/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='vendors/jquery-datatables/jquery.dataTables.min.js') }}">
+</script>
+<script src="{{ url_for('static', filename='vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js')}}">
+</script>
+<script src="{{ url_for('static', filename='vendors/fontawesome/all.min.js')}}"></script>
+{% endblock  %}

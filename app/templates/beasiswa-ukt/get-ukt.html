@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set filename = 'kat-fakultas' %}
+{% set filename = 'get-ukt' %}
 
 {% block css %}
 <link rel="stylesheet"
@@ -28,55 +28,56 @@
           <div class="card-content">
             <div class="card-body">
               {# <h5 class="card-title">Data Penerima UKT</h5> #}
-              <a href=" {{url_for('ukt.tambahDataUkt')}} " class="btn btn-primary btn-sm">.::Tambah Data::.</a>
+              <a href=" {{url_for('ukt.tambahDataUkt')}} " class="btn btn-primary btn-sm">+ Tambah Data +</a>
+              <a href=" {{url_for('ukt.ujiUkt')}} " class="btn btn-success btn-sm">+ Uji Data +</a>
               {# <hr> #}
-              <div class="table table-responsive">
-                <table class="table table-sm">
-
-                  <thead class="text-center">
+              <div class="table-responsive-sm">
+                <table class="table">
+                  <thead>
                     <tr>
-                      <th>No.</th>
-                      <th>Nama</th>
-                      <th>NIM</th>
-                      <th>NIK</th>
+                      <th>Nama Mahasiswa</th>
                       <th>Prodi</th>
-                      <th>Semester</th>
-                      <th>Status</th>
-                      <th>KIP</th>
+                      <th>Smstr</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center">KIP</th>
                       <th>Penghasilan</th>
                       <th>Tanggungan</th>
                       <th>PKH</th>
                       <th>Kelayakan</th>
-                      <th>Aksi</th>
+                      <th class="text-center">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for data in response.get('data') %}
                     <tr>
-                      <td>{{ loop.index }}</td>
                       <td>{{ data.nama }}</td>
-                      <td>{{ data.nim }}</td>
-                      <td>{{ data.nik }}</td>
                       <td>{{ data.prodi }}</td>
-                      <td>{{ data.semester }}</td>
-                      <td>{{ data.status_mhs }}</td>
-                      <td>{{ data.terima_kip_bm}}</td>
+                      <td class="text-center">{{ data.semester }}</td>
+                      <td>{{ data.status_mhs | capitalize }}</td>
+                      <td>{{ data.terima_kip_bm | capitalize}}</td>
                       <td>{{ data.penghasilan_orang_tua }}</td>
-                      <td>{{ data.jml_tanggungan }}</td>
-                      <td>{{ data.pkh }}</td>
-                      <td>{{ data.keputusan }}</td>
+                      <td class="text-center">{{ data.jml_tanggungan }}</td>
+                      <td>{{ data.pkh | capitalize }}</td>
+                      <td>{{ data.keputusan | capitalize }}</td>
                       <td>
-                        <a href="" class="btn btn-sm btn-outline-warning">
+                        <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-placement="top"
+                          title="Detail Data {{ data.nama }}" data-bs-target="#modal-detaill{{data.id}}">
+                          <i class="fa fa-eye"></i>
+                        </button>
+                        <a href="{{url_for('ukt.getByIdUkt', id=data.id)}}" class="btn btn-sm btn-outline-warning"
+                          data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Data {{ data.nama }}">
                           <i class="fa fa-pen"></i>
                         </a>
 
-                        <a href="" class="btn btn-sm btn-outline-danger">
+                        <a href="" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-placement="top"
+                          title="Hapus Data {{ data.nama }}" data-bs-target="#hapusModal{{data.id}}">
                           <i class="fa fa-trash"></i>
                         </a>
                       </td>
                     </tr>
+                    {% include "modal/modal-delete-ukt.html" %}
+                    {% include "modal/modal-detail-ukt.html" %}
                     {% endfor %}
-
                   </tbody>
                 </table>
                 <nav aria-label="Page navigation example">

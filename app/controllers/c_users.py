@@ -6,7 +6,7 @@ admin = Blueprint('admin', __name__, url_prefix='/',
                   template_folder='../templates/admin/')
 
 # base_url = 'https://api.beasiswa-tuim.site'
-base_url = 'http://192.168.1.8:5000'
+base_url = 'http://192.168.1.9:5000'
 
 
 # dashboard
@@ -26,16 +26,14 @@ def adminDashboard():
 # kategori Fakultas
 @admin.route('/kategori-fakultas', methods=['GET', 'POST'])
 def kategoriF():
-    url = base_url+'/kampus/fakultas'
-    r = requests.get(url).json()
-    response = r.get('data')
-    return render_template('fakultas.html', response=response)
+
+    return render_template('fakultas.html')
 
 
 # kategori jurusan
 @admin.route('/kategori-jurusan', methods=['GET', 'POST'])
 def kategoriJ():
-    url = base_url + '/kampus/jurusan'
+    url = base_url + '/kategori/jurusan'
     req = requests.get(url).json()
     response = req.get('data')
 

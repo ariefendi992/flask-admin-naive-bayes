@@ -19,17 +19,14 @@
 
 {% block content %}
 <div class="content-wrapper container">
-  {# <div class="page-heading">
-    <h4>.::Kategori Jurusan::.</h4>
-  </div> #}
+
   <div class="page-content">
     <div class="row">
       <div class="col-12 col-md-12">
         <div class="card">
           <div class="card-content">
             <div class="card-body">
-              {# <h5 class="card-title">Data Jurusan</h5> #}
-              <a href=" {{url_for('admin.userAdd')}} " class="btn btn-primary btn-sm">.::Tambah Data::.</a>
+              <a href="{{url_for('admin.userAdd')}}" class="btn btn-primary btn-sm">+ Tambah Data +</a>
               <table class="table" id="table1">
                 <thead>
                   <tr>
@@ -53,7 +50,7 @@
                     <td>{{data.created_at | dateTimeIndo }}</td>
                     <td>
                       <a class="btn btn-sm btn-outline-warning" href="{{url_for('admin.userById', id=data.id)}}"
-                        data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Data {{ data.nama }}">
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Data {{ data.nama }}">
                         <i class="fa fa-pen"></i>
                       </a>
                       <a href="" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-placement="top"

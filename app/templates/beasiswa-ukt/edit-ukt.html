@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set filename = 'ukt-add' %}
+{% set filename = 'ukt-edit' %}
 
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='vendors/choices.js/choices.min.css') }}" />
@@ -30,34 +30,36 @@
     <div class="row">
       <div class="col-12 col-md-12">
         <div class="card">
+          {# {% for x in resp_ukt %}
+          {{x.id_user}}
+          {% endfor %} #}
           <div class="card-content">
             <div class="card-body">
               <div class="row">
                 <div id="form" class="col-md-7">
-                  <form method="post" class="form form-horizontal">
+                  <form action="{{url_for('ukt.updateUkt', id=resp_ukt.id )}}" method="post"
+                    class="form form-horizontal">
                     <div class="form-body">
                       <div class="row">
-                        <h5 class="card-title">Tambah Data Pendaftar Beasiswa UKT</h5>
+                        <h5 class="card-title">Edit Data Pendaftar Beasiswa UKT</h5>
                         <div class="col-md-4">
                           <label>Nama</label>
                         </div>
-                        <fieldset class="col-md-8 form-group">
-                          <select class="form-select form-select-sm" name="id_user" id="selectUser"
-                            onchange="getUser(this)">
-                            <option value="">.:: Pilih ::.</option>
-                            {% for user in resp_user %}
-                            <option value="{{user.id}}">{{user.nama}} | {{user.stambuk}}</option>
-
-                            {% endfor %}
-                          </select>
-                        </fieldset>
+                        <div class="col-md-8 form-group">
+                          {% for user in resp_user %}
+                          {% if resp_ukt.id_user == user.id %}
+                          <input type="text" id="nik-id" class="form-control form-control-sm" name="id_user"
+                            placeholder="Nama Mahasiswa" value="{{ user.nama}}" disabled>
+                          {% endif %}
+                          {% endfor %}
+                        </div>
 
                         <div class="col-md-4">
                           <label>NIK</label>
                         </div>
                         <div class="col-md-8 form-group">
                           <input type="text" id="nik-id" class="form-control form-control-sm" name="nik"
-                            placeholder="No. Induk KTP">
+                            placeholder="No. Induk KTP" value="{{ resp_ukt.nik}}">
                         </div>
 
                         <div class="col-md-4">
@@ -67,7 +69,9 @@
                           <select class="form-select form-select-sm" name="prodi">
                             <option value="">.:: Pilih ::.</option>
                             {% for prodi in resp_prodi %}
-                            <option value="{{prodi.id}}">{{prodi.jurusan}}</option>
+                            <option value="{{prodi.id}}" {{'selected' if resp_ukt.id_prodi == prodi.id else ''}}>
+                              {{prodi.jurusan}}
+                            </option>
                             {% endfor %}
                           </select>
                         </fieldset>
@@ -79,7 +83,8 @@
                           <select class="form-select form-select-sm" name="semester">
                             <option value="">.:: Pilih ::.</option>
                             {% for sms in resp_sms %}
-                            <option value="{{sms.id}}">{{sms.semester}}</option>
+                            <option value="{{sms.id}}" {{'selected' if resp_ukt.id_sms == sms.id else '' }}>
+                              {{sms.semester}}</option>
                             {% endfor %}
                           </select>
                         </fieldset>
@@ -90,8 +95,10 @@
                         <fieldset class="col-md-8 form-group">
                           <select class="form-select form-select-sm" name="status_mhs">
                             <option value="">.:: Pilih ::.</option>
-                            <option value="aktif">Aktif</option>
-                            <option value="cuti">Cuti</option>
+                            <option value="aktif" {{ 'selected' if resp_ukt.status_mhs == 'aktif' else '' }}>Aktif
+                            </option>
+                            <option value="cuti" {{ 'selected' if resp_ukt.status_mhs == 'cuti' else '' }}>Cuti
+                            </option>
                           </select>
                         </fieldset>
 
@@ -101,8 +108,9 @@
                         <fieldset class="col-md-8 form-group">
                           <select class="form-select form-select-sm" name="kip">
                             <option value="">.:: Pilih ::.</option>
-                            <option value="terima">Terima</option>
-                            <option value="tidak">Tidak</option>
+                            <option value="terima" {{'selected' if resp_ukt.kip_bm == 'terima' else '' }}>Terima
+                            </option>
+                            <option value="tidak" {{'selected' if resp_ukt.kip_bm == 'tidak' else '' }}>Tidak</option>
                           </select>
                         </fieldset>
 
@@ -113,7 +121,9 @@
                           <select class="form-select form-select-sm" name="penghasilan_orang_tua">
                             <option value="">.:: Pilih ::.</option>
                             {% for penghasilan in resp_penghasilan %}
-                            <option value="{{penghasilan.id}}">{{penghasilan.keterangan}}</option>
+                            <option value="{{penghasilan.id}}"
+                              {{'selected' if resp_ukt.id_penghasilan == penghasilan.id}}>{{ penghasilan.keterangan}}
+                            </option>
                             {% endfor %}
                           </select>
                         </fieldset>
@@ -123,7 +133,7 @@
                         </div>
                         <div class="col-md-8 form-group">
                           <input type="number" id="nik-id" class="form-control form-control-sm" name="tanggungan"
-                            placeholder="Tanggungan Orang Tua">
+                            placeholder="Tanggungan Orang Tua" value="{{ resp_ukt.tanggungan}}">
                         </div>
 
                         <div class="col-md-4">
@@ -132,8 +142,9 @@
                         <fieldset class="col-md-8 form-group">
                           <select class="form-select form-select-sm" name="pkh">
                             <option value="">.:: Pilih ::.</option>
-                            <option value="terima">Terima</option>
-                            <option value="tidak">Tidak</option>
+                            <option value="terima" {{ 'selected' if resp_ukt.pkh_kks == 'terima' else '' }}>Terima
+                            </option>
+                            <option value="tidak" {{ 'selected' if resp_ukt.pkh_kks == 'tidak' else '' }}>Tidak</option>
                           </select>
                         </fieldset>
 
@@ -143,13 +154,15 @@
                         <fieldset class="col-md-8 form-group">
                           <select class="form-select form-select-sm" name="keputusan">
                             <option value="">.:: Pilih ::.</option>
-                            <option value="layak">Layak</option>
-                            <option value="tidak layak">Tidak Layak</option>
+                            <option value="layak" {{ 'selected' if resp_ukt.kelayakan == 'layak' else '' }}>Layak
+                            </option>
+                            <option value="tidak layak" {{ 'selected' if resp_ukt.kelayakan == 'tidak layak' else '' }}>
+                              Tidak Layak</option>
                           </select>
                         </fieldset>
 
                         <div class="col-sm-12 d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary btn-sm me-1 mb-1 ">Simpan</button>
+                          <button type="submit" class="btn btn-primary btn-sm me-1 mb-1 ">Update</button>
                           <button type="reset" class="btn btn-light-secondary  btn-sm me-1 mb-1">Reset</button>
                         </div>
                       </div>
