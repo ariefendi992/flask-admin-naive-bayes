@@ -1,12 +1,10 @@
 import json
 from flask import Blueprint, redirect, render_template, request, url_for
+from app.url import *
 import requests
 
 admin = Blueprint('admin', __name__, url_prefix='/',
                   template_folder='../templates/admin/')
-
-# base_url = 'https://api.beasiswa-tuim.site'
-base_url = 'http://192.168.1.9:5000'
 
 
 # dashboard
@@ -44,11 +42,14 @@ def kategoriJ():
 @admin.route('/users', methods=['GET', 'POST'])
 def userData():
     url = base_url+'/auth/get-all'
+    x = request.args.get('page')
+    r = requests.get(url + f'?page={x}')
 
-    r = requests.get(url).json()
-    resp = r.get('data')
-
-    return render_template('user-data.html', response=resp)
+    if r.status_code == 200:
+        response = r.json()
+        return render_template('user-data.html', response=response)
+    else:
+        return r.json().get('msg')
 
 
 # user login data

@@ -1,12 +1,10 @@
 import json
 from flask import Blueprint, request, render_template, redirect, url_for
+from app.url import base_url
 import requests
 
 ukt = Blueprint('ukt', __name__, template_folder='../templates/beasiswa-ukt',
                 url_prefix='/beasiswa-ukt')
-
-# base_url = 'https://api.beasiswa-tuim.site'
-base_url = 'http://192.168.1.9:5000'
 
 
 @ukt.route('/', methods=['GET', 'POST'])
