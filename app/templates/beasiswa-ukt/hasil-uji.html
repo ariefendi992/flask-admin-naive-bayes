@@ -185,6 +185,69 @@
                   </div>
                 </div>
               </div>
+              <div class="row pt-3">
+                <div class="col-md-8">
+                  <h6 class="card-subitle">Perbandingan Hasil Perhitungan</h6>
+                  <div class="table-responsive-sm">
+                    <table class="table table-bordered border-secondary border border-2">
+                      <thead class="table-dark">
+                        <tr>
+                          <th colspan="2"></th>
+                          <th colspan="2">Perhitungan</th>
+                          <th>Hasil</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>P|C1 (Layak)</td>
+                          <td class="text-center">:</td>
+                          <td>
+                            {% for data in response['data'] %}
+                            {{data.p_class.layak}} x
+                            {{ data.atr_prodi.layak}} x
+                            {{ data.atr_semester.layak}} x
+                            {{ data.atr_status_mhs.layak}} x
+                            {{ data.atr_penerima_kip.layak}} x
+                            {{ data.atr_penghasilan_orang_tua.layak}} x
+                            {{ data.atr_jml_tanggungan.layak}} x
+                            {{ data.atr_status_pkh.layak}}
+                            {% endfor %}
+                          </td>
+                          <td class="text-center">=</td>
+                          <td>
+                            {% for data in response['data'] %}
+                            {{ data.probabilitas.layak}}
+                            {%endfor%}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>P|C0 (Tidak Layak)</td>
+                          <td class="text-center">:</td>
+                          <td>
+                            {% for data in response['data'] %}
+                            {{data.p_class.tidak_layak}} x
+                            {{ data.atr_prodi.tidak_layak}} x
+                            {{ data.atr_semester.tidak_layak}} x
+                            {{ data.atr_status_mhs.tidak_layak}} x
+                            {{ data.atr_penerima_kip.tidak_layak}} x
+                            {{ data.atr_penghasilan_orang_tua.tidak_layak}} x
+                            {{ data.atr_jml_tanggungan.tidak_layak}} x
+                            {{ data.atr_status_pkh.tidak_layak}}
+                            {% endfor %}
+                          </td>
+                          <td class="text-center">=</td>
+                          <td>
+                            {% for data in response['data'] %}
+                            {{ data.probabilitas.tidak_layak}}
+                            {%endfor%}
+                          </td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                  </div>
+                </div>
+              </div>
               <div class="row pt-2">
                 <p class="card-text">
                   Berdasarkan hasil perhitungan, dapat disimpulkan bahwa data uji tersebut
